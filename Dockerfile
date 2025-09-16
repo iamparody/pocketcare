@@ -19,4 +19,5 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run Reflex in production mode
-CMD ["reflex", "run", "--env", "prod", "--host", "0.0.0.0", "--port", "10000"]
+# Start Reflex app (backend + frontend served together)
+CMD ["reflex", "run", "--env", "prod", "--backend-host", "0.0.0.0", "--backend-port", "8000"]
