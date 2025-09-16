@@ -18,11 +18,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-# Build frontend assets
+# Initialize Reflex (build frontend assets)
 RUN reflex init
 
-# Expose only port 8000
+# Expose only port 8000 for Render
 EXPOSE 8000
 
-# Run Reflex in production mode
-CMD ["reflex", "run", "--env", "prod", "--backend-host", "0.0.0.0", "--backend-port", "8000"]
+# Run Reflex backend-only in production mode
+CMD ["reflex", "run", "--env", "prod", "--backend-only", "--backend-host", "0.0.0.0", "--backend-port", "8000"]
