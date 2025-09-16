@@ -1,23 +1,30 @@
-# Dockerfile
+# Use lightweight Python image
 FROM python:3.11-slim
 
-WORKDIR /app
-
-# System deps
+# Install system dependencies needed by Reflex
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
+    curl \
+    unzip \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Reflex
-RUN pip install --no-cache-dir reflex
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first (for caching)
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app files
 COPY . .
 
-# Install requirements
-RUN pip install --no-cache-dir -r requirements.txt
+# Build Reflex frontend (this ensures Bun & frontend deps are installed)
+RUN reflex init
+
+# Expose port
+EXPOSE 8000
 
 # Run Reflex in production mode
-# Start Reflex app (backend + frontend served together)
 CMD ["reflex", "run", "--env", "prod", "--backend-host", "0.0.0.0", "--backend-port", "8000"]
