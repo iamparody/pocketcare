@@ -1,0 +1,104 @@
+pocketcare/
+│── assets/
+│── requirements.txt
+│── rxconfig
+│
+└── app/
+    │── app.py
+    │
+    ├── components/
+    │   │── dashboard.py
+    │   │── profile.py
+    │   │── reports.py
+    │   │── sign_in.py
+    │   │── sign_up.py
+    │   │── subscription.py
+    │
+    │   ├── dashboard_widgets.py
+    │   ├── header.py
+    │   ├── sidebar.py
+    │   ├── sign_in_card.py
+    │   └── sign_up_card.py
+    │
+    ├── pages/
+    │
+    └── states/
+        │── auth_state.py
+        │── dashboard_state.py
+
+
+
+Roadmap
+---------
+🔑 PocketCareAuth Roadmap
+1. Foundation Setup
+
+ Confirm environment setup (requirements.txt, rxconfig working in Reflex).
+
+ Establish a config for secrets (JWT secret key, DB connection, API keys if needed).
+
+ Decide storage layer: local SQLite (dev) → scalable DB later (Postgres).
+
+2. Authentication Core
+
+ Sign-up flow (sign_up.py + sign_up_card.py + auth_state.py):
+
+Input validation (email, password, phone if needed).
+
+Password hashing (bcrypt/argon2).
+
+Store user in DB.
+
+ Sign-in flow (sign_in.py + sign_in_card.py + auth_state.py):
+
+Verify credentials.
+
+Generate session token (JWT or Reflex session).
+
+ Session management:
+
+Store token in auth_state.py.
+
+Middleware/guard to protect dashboard & subscription pages.
+
+3. Role & Permissions
+
+ Add roles (therapist, member, admin) to auth_state.py.
+
+ Restrict page access in pages/ based on role.
+
+ Add admin-only dashboard entry.
+
+4. User Dashboard
+
+ Implement dashboard.py + dashboard_widgets.py.
+
+ Profile management (profile.py).
+
+ Reports & history (reports.py).
+
+5. Subscriptions
+
+ Subscription logic in subscription.py.
+
+ Weekly KES 150 billing (stub → later integrate with M-Pesa/Stripe).
+
+ Access control: block dashboard if subscription inactive.
+
+6. Security & UX
+
+ Add logout.
+
+ Add “remember me” (refresh tokens or cookies).
+
+ Forgot password / reset flow.
+
+ Email/SMS verification (optional phase 2).
+
+7. Testing & Hardening
+
+ Unit tests for auth_state.py.
+
+ End-to-end flow testing (sign up → sign in → dashboard).
+
+ Error handling & edge cases (invalid logins, expired sessions, unsubscribed users).
