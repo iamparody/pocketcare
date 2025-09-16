@@ -18,9 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-# Expose Reflex backend port
-ENV REFLEX_BACKEND_PORT=8000
-EXPOSE 8000
+# Expose the port dynamically (Render uses $PORT)
+EXPOSE $PORT
 
-# Run Reflex in production mode, bind backend to 0.0.0.0
-CMD ["reflex", "run", "--env", "prod", "--backend-host", "0.0.0.0", "--backend-port", "8000"]
+# Run Reflex in production mode, binding to Render's port
+CMD ["sh", "-c", "reflex run --env prod --backend-host 0.0.0.0 --backend-port $PORT"]
