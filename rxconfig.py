@@ -1,9 +1,11 @@
+# import reflex as rx
+
+# config = rx.Config(app_name="app", plugins=[rx.plugins.TailwindV3Plugin()])
+
+
 import reflex as rx
 
 config = rx.Config(
     app_name="app",
-    plugins=[
-        rx.plugins.TailwindV3Plugin(),
-        "reflex.plugins.sitemap.SitemapPlugin"
-    ],
+    plugins=[rx.plugins.TailwindV3Plugin()],
 )
